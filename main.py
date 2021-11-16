@@ -111,7 +111,7 @@ train_ds = UserDataset()
 batch_size = 64
 train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=0)
 
-wandb.init(entity="dangcaptkd", project="recys-model", notes="ver_2", tags="ssh")
+wandb.init(entity="dangcaptkd", project="recys-model", notes="ver_2", tags="ssh_3")
 model = model.float()
 model.train()
 tracking_loss = []
