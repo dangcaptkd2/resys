@@ -32,7 +32,9 @@ class Resys(nn.Module):
         self.linear_img_1 = nn.Linear(512,512)
 
         self.linear_feature_0 = nn.Linear(X['raw_merge_feature_dim'], 1024)
+        self.batch_norm_1024 = nn.BatchNorm2d(1024)
         self.linear_feature_1 = nn.Linear(1024, 512)
+        self.batch_norm_512 = nn.BatchNorm2d(512)
         self.linear_feature_2 = nn.Linear(512, 256)
 
         self.device = X['device']
@@ -115,9 +117,9 @@ class Resys(nn.Module):
         merge_feature = torch.cat((linear_text_1, linear_cate_1, linear_price_1, linear_img_1, linear_size_1, linear_style_1), dim=1) # [batch_size, 3072] 
         
         feature_0 = self.linear_feature_0(merge_feature)
-        feature_0 = self.relu_layer(feature_0)
+        feature_0 = self.relu_layer(self.batch_norm_1024(feature_0))
         feature_1 = self.linear_feature_1(feature_0)
-        feature_1 = self.relu_layer(feature_1)
+        feature_1 = self.relu_layer(self.batch_norm_512(feature_1))
         feature_2 = self.linear_feature_2(feature_1)
 
         return feature_2
