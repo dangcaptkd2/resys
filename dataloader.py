@@ -9,7 +9,7 @@ from torch.utils.data import Dataset
 class UserDataset(Dataset):
         def __init__(self):
                 self.features = pickle.load(open('./data/features.pkl', "rb"))
-                self.triple_data = json.load(open('./data/triple_data_10.json'))
+                self.triple_data = json.load(open('./data/triple_data_20.json'))
 
                 self.text_idx = 0
                 self.cate_idx = 1
